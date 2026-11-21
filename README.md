@@ -19,3 +19,34 @@ To reproduce the dataset manually, head to the NASA Data Power viewer at this ad
 
 ## 4. Methodology & Mathematical Analyses
 All data processing and statistical modelling were performed in Python with these extra imports: pandas, numpy, scipy, statsmodels, and matplotlib.
+
+## Analysis
+
+# Analysis 1: Multiple Linear Regression (Energy Balance Drivers)
+To quantify how radiative forcing and atmospheric state variables jointly determine daily surface temperature, we fit an Ordinary Least Squares (OLS) multiple linear regression model:
+
+$$T_{2\text{M}} = \beta_0 + \beta_1 S_{\downarrow} + \beta_2 \text{RH} + \beta_3 P_s + \beta_4 v_{\text{wind}} + \epsilon$$
+
+* Variables were standardized ($z$-scores) to compare the relative physical effect size ($\beta_i$) of predictors measured in different units.
+* Variance Inflation Factors (VIF) were computed to verify the absence of severe multicollinearity among meteorological predictors.
+
+### Analysis 2: Fast Fourier Transform (Spectral Decomposition)
+To analyse cyclical radiative forcing in the frequency domain, a Discrete Fourier Transform (DFT) was applied to the daily solar irradiance time series $S_{\downarrow}[n]$ ($N = 3653$ days) after removing the mean (DC component):
+
+$$X[k] = \sum_{n=0}^{N-1} \left(S_{\downarrow}[n] - \bar{S}_{\downarrow}\right) e^{-i 2\pi k n / N}$$
+
+* The Power Spectral Density (PSD) was computed to identify dominant oscillation periods ($T = 1/f$) and harmonic frequencies.
+
+## Main Findings
+## 5. Repository Structure
+```text
+├── README.md                              # Project documentation and findings
+├── index.html                             # Source code for the presentation website
+├── style.css                              # Styling for the presentation website
+├── data/
+│   └── brussels_weather_2016_2025.csv     # Raw daily meteorological data from NASA POWER
+├── scripts/
+│   └── analysis.py                        # Python script running regression, FFT, and plotting
+└── figures/
+    ├── regression_analysis.pdf            # Exported PDF: Standardized coefficients & residuals
+    └── fft_solar_spectrum.pdf             # Exported PDF: Solar irradiance time series & PSD
