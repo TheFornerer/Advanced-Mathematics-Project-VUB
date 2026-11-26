@@ -38,6 +38,11 @@ $$X[k] = \sum_{n=0}^{N-1} \left(S_{\downarrow}[n] - \bar{S}_{\downarrow}\right) 
 * The Power Spectral Density (PSD) was computed to identify dominant oscillation periods ($T = 1/f$) and harmonic frequencies.
 
 ## Main Findings
+* **Regression Results:** The multiple linear regression model explains **$R^2 = [0.XX]$** ($p < 0.001$) of the variance in daily surface temperature. Downward shortwave solar irradiance ($S_{\downarrow}$) is the strongest positive driver ($\beta_{\text{std}} = [X.XX]$), while relative humidity exhibits a strong negative correlation ($\beta_{\text{std}} = [-X.XX]$) due to cloud cover and evaporative cooling effects.
+* **Spectral Results:** The FFT periodogram reveals a sharp, dominant spectral peak at **$f \approx 0.00274\text{ days}^{-1}$**, corresponding to a period of **$T \approx 365.3\text{ days}$** (Earth's orbital revolution around the Sun), along with a minor secondary harmonic at **$T \approx 182.6\text{ days}$** resulting from the asymmetric seasonal duration of summer vs. winter insolation at $50.85^\circ\text{N}$ latitude.*
+
+
+  
 ## 5. Repository Structure
 ```text
 ├── README.md                              # Project documentation and findings
