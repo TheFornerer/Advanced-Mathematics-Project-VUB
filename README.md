@@ -37,9 +37,28 @@ $$X[k] = \sum_{n=0}^{N-1} \left(S_{\downarrow}[n] - \bar{S}_{\downarrow}\right) 
 
 * The Power Spectral Density (PSD) was computed to identify dominant oscillation periods ($T = 1/f$) and harmonic frequencies.
 
-## Main Findings
-* **Regression Results:** The multiple linear regression model explains **$R^2 = [0.XX]$** ($p < 0.001$) of the variance in daily surface temperature. Downward shortwave solar irradiance ($S_{\downarrow}$) is the strongest positive driver ($\beta_{\text{std}} = [X.XX]$), while relative humidity exhibits a strong negative correlation ($\beta_{\text{std}} = [-X.XX]$) due to cloud cover and evaporative cooling effects.
-* **Spectral Results:** The FFT periodogram reveals a sharp, dominant spectral peak at **$f \approx 0.00274\text{ days}^{-1}$**, corresponding to a period of **$T \approx 365.3\text{ days}$** (Earth's orbital revolution around the Sun), along with a minor secondary harmonic at **$T \approx 182.6\text{ days}$** resulting from the asymmetric seasonal duration of summer vs. winter insolation at $50.85^\circ\text{N}$ latitude.*
+## 4. Main Findings
+
+### Dataset Overview (Warsaw: Dec 31, 2015 – Dec 31, 2024)
+Across **N = 3,289** daily observations near Pałac Kultury i Nauki (`52.2298° N, 21.0073° E`), daily mean temperature (`T2M`) averaged **9.46 °C** (SD = **9.04 °C**, range **-17.10 °C to 28.56 °C**), and downward shortwave solar irradiance (`ALLSKY_SFC_SW_DWN`) averaged **10.91 MJ/m²/day** (SD = **8.10 MJ/m²/day**, range **0.44 to 30.91 MJ/m²/day**).
+
+### Analysis 1: Multiple Linear Regression (OLS)
+The multiple linear regression model predicting daily mean temperature from solar irradiance, relative humidity, surface pressure, and wind speed is statistically significant ($F(4, 3284) = 1352$, $p < 0.001$) and explains **$R^2 = 0.622$ (62.2%)** of the daily temperature variance:
+
+$$T_{2\text{M}} = 251.538 + 0.505\,S_{\downarrow} - 0.229\,\text{RH} - 2.269\,P_s - 0.802\,v_{\text{wind}}$$
+
+* **Solar Irradiance (`ALLSKY_SFC_SW_DWN`):** Raw slope $\beta = +0.505\ ^\circ\text{C}/(\text{MJ/m}^2/\text{day})$, standardized effect **$\beta_{\text{std}} = +0.452$** ($p = 8.96 \times 10^{-94}$). This is the strongest positive driver of surface warming via direct radiative energy input.
+* **Relative Humidity (`RH2M`):** Raw slope $\beta = -0.229\ ^\circ\text{C}/\%$, standardized effect **$\beta_{\text{std}} = -0.330$** ($p = 9.79 \times 10^{-54}$). Higher humidity is associated with increased cloud cover (blocking sunlight) and evaporative cooling.
+* **Surface Pressure (`PS`):** Raw slope $\beta = -2.269\ ^\circ\text{C}/\text{kPa}$, standardized effect **$\beta_{\text{std}} = -0.213$** ($p = 1.40 \times 10^{-75}$). In Central Europe, strong high-pressure anticyclones frequently bring cold, clear continental air masses in winter.
+* **Wind Speed (`WS2M`):** Raw slope $\beta = -0.802\ ^\circ\text{C}/(\text{m/s})$, standardized effect **$\beta_{\text{std}} = -0.114$** ($p = 8.87 \times 10^{-22}$). Stronger winds enhance convective heat transfer away from the surface.
+* **Multicollinearity Check (VIF):** All Variance Inflation Factors lie between **1.11 and 3.95** (`SW_DWN`: 3.95, `RH2M`: 3.83, `PS`: 1.11, `WS2M`: 1.20), well below the critical threshold of 5–10, confirming that the predictors do not suffer from problematic multicollinearity.
+
+### Analysis 2: Fast Fourier Transform (FFT Spectral Analysis)
+Applying a one-sided Real Discrete Fourier Transform (`rfft`) to the mean-centered solar irradiance series ($N = 3289$ days) reveals a single dominant spectral spike in the Power Spectral Density ($\text{PSD}_{\max} = 82,708.83$):
+* **Dominant Frequency:** **$f = 0.002736\text{ cycles/day}$**
+* **Corresponding Period:** **$T = \frac{1}{f} = 365.44\text{ days}$**
+
+This matches Earth's **365.25-day orbital revolution** around the Sun (within the discrete frequency bin resolution $\Delta f = 1/3289 \approx 0.000304\text{ cycles/day}$ of a 9-year window), proving that astronomical orbital mechanics govern Warsaw's long-term radiative energy budget despite daily cloud noise.
 
 
   
