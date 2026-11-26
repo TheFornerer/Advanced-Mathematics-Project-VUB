@@ -64,13 +64,13 @@ This matches Earth's **365.25-day orbital revolution** around the Sun (within th
   
 ## 5. Repository Structure
 ```text
-├── README.md                              # Project documentation and findings
-├── index.html                             # Source code for the presentation website
-├── style.css                              # Styling for the presentation website
+├── README.md                                              # Project documentation and findings
+├── ‎Index/MathProject.txt                                  # Source code for the website
 ├── data/
-│   └── brussels_weather_2016_2025.csv     # Raw daily meteorological data from NASA POWER
-├── scripts/
-│   └── analysis.py                        # Python script running regression, FFT, and plotting
+│   └── WarsawNassa_Power_data.csv                         # Raw daily meteorological data from NASA POWER
+├── Code
+│   └── Math project.ipynb                                 # Colab code
+│   └── Advanced-Math-Project_Mateusz_Czerniej_VSCode.txt  # Python script running regression, FFT, and plotting
 └── figures/
-    ├── regression_analysis.pdf            # Exported PDF: Standardized coefficients & residuals
-    └── fft_solar_spectrum.pdf             # Exported PDF: Solar irradiance time series & PSD
+    ├── regression_analysis.pdf                            # Exported PDF: Standardized coefficients & residuals
+    └── fft_solar_spectrum.pdf                             # Exported PDF: Solar irradiance time series & PSD
