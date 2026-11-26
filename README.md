@@ -60,6 +60,8 @@ Applying a one-sided Real Discrete Fourier Transform (`rfft`) to the mean-center
 
 This matches Earth's **365.25-day orbital revolution** around the Sun (within the discrete frequency bin resolution $\Delta f = 1/3289 \approx 0.000304\text{ cycles/day}$ of a 9-year window), proving that astronomical orbital mechanics govern Warsaw's long-term radiative energy budget despite daily cloud noise.
 
+5. Website URL:
+
 
   
 ## 5. Repository Structure
