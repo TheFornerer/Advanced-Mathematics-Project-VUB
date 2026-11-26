@@ -5,7 +5,7 @@
 Which meteorological variables most strongly drive daily surface air temperature variations in Warsaw, Poland, and what dominant periodic frequencies govern local solar radiation over a 10-year period?
 
 ## 2. All the datasets were obtained from **NASA POWER (Prediction of Worldwide Energy Resources)** 
-The data are for Warsaw, the capital city of Poland (latitude:  52.2298,   longitude: 21.0073), covering the 10 years from **December 31, 2015 to December 31, 2025**.
+The data are for Warsaw, the capital city of Poland (latitude:  52.2298,   longitude: 21.0073), covering the 9 years from **December 31, 2015 to December 31, 2024**.
 
 ## 3. The cvs file of the dataset can be located in this repository under the name of " " 
 # I used these variables to model how strongly they derive by using: 
