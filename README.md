@@ -1,76 +1,265 @@
-# Advanced-Mathematics-Project-VUB
-# This is Mateusz Czerniejs's Mathematics Project. 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>~*~ WARSAW WEATHER & SOLAR PHYSICS ~*~</title>
+    <style>
+        body {
+            background-color: #000080;
+            background-image: radial-gradient(#FFFFFF 1px, transparent 1px), radial-gradient(#FFFF00 1.5px, #000080 1.5px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+            color: #FFFFFF;
+            font-family: "Comic Sans MS", "Chalkboard SE", cursive, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        table.main-layout {
+            width: 820px;
+            margin: 0 auto;
+            background-color: #000044;
+            border: 5px ridge #00FFFF;
+            padding: 15px;
+        }
+        h1 {
+            color: #FFFF00;
+            text-align: center;
+            text-shadow: 3px 3px #FF00FF;
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+        h2 {
+            color: #00FF00;
+            background-color: #220066;
+            border: 2px dashed #FF00FF;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+        .marquee-box {
+            background-color: #000000;
+            border: 2px inset #C0C0C0;
+            color: #00FF00;
+            padding: 5px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .blink {
+            animation: blinker 1s linear infinite;
+            color: #FF00FF;
+            font-weight: bold;
+        }
+        @keyframes blinker {
+            50% { opacity: 0; }
+        }
+        .nav-bar {
+            text-align: center;
+            background-color: #C0C0C0;
+            color: #000000;
+            border: 3px outset #FFFFFF;
+            padding: 8px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .nav-bar a {
+            color: #0000FF;
+            margin: 0 12px;
+            text-decoration: underline;
+        }
+        .nav-bar a:hover {
+            background-color: #FFFF00;
+            color: #FF0000;
+        }
+        .graph-box {
+            background-color: #FFFFFF;
+            color: #000000;
+            border: 4px outset #C0C0C0;
+            padding: 12px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .graph-box img {
+            max-width: 100%;
+            height: auto;
+            border: 2px solid #000000;
+        }
+        .graph-caption {
+            font-size: 14px;
+            font-weight: bold;
+            margin-top: 8px;
+            color: #000080;
+        }
+        table.stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #000066;
+            margin: 10px 0;
+        }
+        table.stats-table th, table.stats-table td {
+            border: 2px solid #00FFFF;
+            padding: 8px;
+            text-align: center;
+        }
+        table.stats-table th {
+            background-color: #FF00FF;
+            color: #FFFF00;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #C0C0C0;
+        }
+        .counter {
+            background-color: #000000;
+            color: #FF0000;
+            font-family: "Courier New", monospace;
+            font-size: 20px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border: 2px inset #808080;
+            letter-spacing: 3px;
+        }
+    </style>
+</head>
+<body>
 
-## 1. Research question 
-Which meteorological variables most strongly drive daily surface air temperature variations in Warsaw, Poland, and what dominant periodic frequencies govern local solar radiation over a 10-year period?
+<table class="main-layout">
+    <tr>
+        <td>
+            <div class="marquee-box">
+                <marquee behavior="scroll" direction="left">
+                    *** WELCOME TO MY ADVANCED MATH &amp; PHYSICS PROJECT WEBSITE *** ANALYZING 3,289 DAYS OF NASA POWER DATA FOR WARSAW, POLAND (2015-2024) ***
+                </marquee>
+            </div>
 
-## 2. All the datasets were obtained from **NASA POWER (Prediction of Worldwide Energy Resources)** 
-The data are for Warsaw, the capital city of Poland (latitude:  52.2298,   longitude: 21.0073), covering the 9 years from **December 31, 2015 to December 31, 2024**.
+            <h1>&#9733; WARSAW ENERGY BALANCE &amp; SOLAR PHYSICS &#9733;</h1>
+            <p style="text-align: center; color: #00FFFF; margin-top: 0;">
+                <i>By: Mateusz Czerniej | VUB Advanced Math Project 2026</i>
+            </p>
 
-## 3. The cvs file of the dataset can be located in this repository under the name of " " 
-# I used these variables to model how strongly they derive by using: 
-  * T2M: Daily Mean Temperature at 2 Meters 
-  * ALLSKY_SFC_SW_DWN: All-Sky Surface Shortwave Downward Irradiance 
-  * RH2M: Relative Humidity at 2 Meters 
-  * PS: Surface Pressure 
-  * WS2M: Wind Speed at 2 Meters
+            <div class="nav-bar">
+                [ <a href="#question">Research Question</a> ]
+                [ <a href="#data">NASA Dataset</a> ]
+                [ <a href="#analysis1">Analysis 1: Regression</a> ]
+                [ <a href="#analysis2">Analysis 2: FFT Spectrum</a> ]
+                [ <a href="#conclusion">Findings</a> ]
+            </div>
 
-To reproduce the dataset manually, head to the NASA Data Power viewer at this address :( https://power.larc.nasa.gov/data-access-viewer/ ), select the single-point with standard resolution. Then make sure you are on the Agroclimatology community. Then set the daily temporal resolution for (latitude:  52.2298,   longitude: 21.0073). Make sure to be within the 10-year time frame, export the parameters listed above, and then export them as CSVs.
+            <hr color="#00FFFF" size="3">
 
-## 4. Methodology & Mathematical Analyses
-All data processing and statistical modelling were performed in Python with these extra imports: pandas, numpy, scipy, statsmodels, and matplotlib.
+            <!-- SECTION 1: RESEARCH QUESTION -->
+            <h2 id="question">&#128269; 1. Research Question</h2>
+            <p>
+                <span class="blink">NEW!</span> Which meteorological variables most strongly drive daily surface air temperature variations in <b>Warsaw, Poland</b> (Pa&#322;ac Kultury i Nauki, 52.23&deg;N, 21.01&deg;E), and what dominant periodic frequencies govern local solar radiation over a 9-year period?
+            </p>
 
-## Analysis
+            <!-- SECTION 2: DATA -->
+            <h2 id="data">&#128225; 2. The NASA POWER Dataset</h2>
+            <p>
+                Data was downloaded from the <b>NASA POWER Project</b> covering <b>3,289 days</b> (Dec 31, 2015 – Dec 31, 2024). Here are the physical variables analyzed in Python:
+            </p>
+            <ul>
+                <li><b style="color:#FFFF00;">T2M:</b> Daily Mean Air Temperature at 2 Meters (&deg;C)</li>
+                <li><b style="color:#FFFF00;">ALLSKY_SFC_SW_DWN:</b> All-Sky Surface Shortwave Downward Irradiance (MJ/m&sup2;/day)</li>
+                <li><b style="color:#FFFF00;">RH2M:</b> Relative Humidity at 2 Meters (%)</li>
+                <li><b style="color:#FFFF00;">PS:</b> Surface Atmospheric Pressure (kPa)</li>
+                <li><b style="color:#FFFF00;">WS2M:</b> Wind Speed at 2 Meters (m/s)</li>
+            </ul>
 
-# Analysis 1: Multiple Linear Regression (Energy Balance Drivers)
-To quantify how radiative forcing and atmospheric state variables jointly determine daily surface temperature, we fit an Ordinary Least Squares (OLS) multiple linear regression model:
+            <!-- SECTION 3: ANALYSIS 1 -->
+            <h2 id="analysis1">&#128200; 3. Analysis 1: Multiple Linear Regression (OLS)</h2>
+            <p>
+                To see how radiative forcing and atmospheric state variables jointly control daily temperature, I ran an Ordinary Least Squares (OLS) multiple linear regression in Python (<b>R&sup2; = 0.622</b>, p &lt; 0.001):
+            </p>
 
-$$T_{2\text{M}} = \beta_0 + \beta_1 S_{\downarrow} + \beta_2 \text{RH} + \beta_3 P_s + \beta_4 v_{\text{wind}} + \epsilon$$
+            <table class="stats-table">
+                <tr>
+                    <th>Physical Variable</th>
+                    <th>Raw Slope (&beta;)</th>
+                    <th>Standardized Effect (&beta;<sub>std</sub>)</th>
+                    <th>VIF (Collinearity)</th>
+                    <th>Physical Interpretation</th>
+                </tr>
+                <tr>
+                    <td><b>Solar Irradiance</b></td>
+                    <td>+0.505 &deg;C / (MJ/m&sup2;)</td>
+                    <td style="color:#00FF00;"><b>+0.452</b></td>
+                    <td>3.95</td>
+                    <td>Strongest positive driver (direct solar heating)</td>
+                </tr>
+                <tr>
+                    <td><b>Relative Humidity</b></td>
+                    <td>-0.229 &deg;C / %</td>
+                    <td style="color:#FF6666;"><b>-0.330</b></td>
+                    <td>3.83</td>
+                    <td>Cloud cover &amp; evaporative cooling</td>
+                </tr>
+                <tr>
+                    <td><b>Surface Pressure</b></td>
+                    <td>-2.269 &deg;C / kPa</td>
+                    <td style="color:#FF6666;"><b>-0.213</b></td>
+                    <td>1.11</td>
+                    <td>Cold continental winter high-pressure systems</td>
+                </tr>
+                <tr>
+                    <td><b>Wind Speed</b></td>
+                    <td>-0.802 &deg;C / (m/s)</td>
+                    <td style="color:#FF6666;"><b>-0.114</b></td>
+                    <td>1.20</td>
+                    <td>Convective heat loss &amp; cold air advection</td>
+                </tr>
+            </table>
 
-* Variables were standardized ($z$-scores) to compare the relative physical effect size ($\beta_i$) of predictors measured in different units.
-* Variance Inflation Factors (VIF) were computed to verify the absence of severe multicollinearity among meteorological predictors.
+            <!-- IMAGE PLACEHOLDER 1 -->
+            <div class="graph-box">
+                <!-- REPLACE "regression_analysis.png" WITH YOUR EXACT IMAGE FILE NAME -->
+                <img src="regression_analysis.png" alt="Multiple Linear Regression Results Graph">
+                <div class="graph-caption">
+                    Figure 1: Standardized effect sizes (left) and observed vs. predicted daily temperatures in Warsaw (right).
+                </div>
+            </div>
 
-### Analysis 2: Fast Fourier Transform (Spectral Decomposition)
-To analyse cyclical radiative forcing in the frequency domain, a Discrete Fourier Transform (DFT) was applied to the daily solar irradiance time series $S_{\downarrow}[n]$ ($N = 3653$ days) after removing the mean (DC component):
+            <!-- SECTION 4: ANALYSIS 2 -->
+            <h2 id="analysis2">&#9889; 4. Analysis 2: Fast Fourier Transform (FFT)</h2>
+            <p>
+                Next, I applied a <b>Discrete Fast Fourier Transform (FFT)</b> to the daily solar irradiance time series to transform it from the time domain into the frequency domain and uncover hidden orbital cycles:
+            </p>
+            <ul>
+                <li><b>Dominant Frequency:</b> <span style="color:#00FFFF;">f = 0.002736 cycles/day</span></li>
+                <li><b>Extracted Period:</b> <span style="color:#FFFF00;">T = 365.44 days</span> (matches Earth's 365.25-day revolution around the Sun!)</li>
+            </ul>
 
-$$X[k] = \sum_{n=0}^{N-1} \left(S_{\downarrow}[n] - \bar{S}_{\downarrow}\right) e^{-i 2\pi k n / N}$$
+            <!-- IMAGE PLACEHOLDER 2 -->
+            <div class="graph-box">
+                <!-- REPLACE "fft_solar_spectrum.png" WITH YOUR EXACT IMAGE FILE NAME -->
+                <img src="fft_solar_spectrum.png" alt="FFT Solar Irradiance Spectrum Graph">
+                <div class="graph-caption">
+                    Figure 2: Daily solar irradiance time series (top) and FFT Power Spectral Density showing the 365.4-day orbital peak (bottom).
+                </div>
+            </div>
 
-* The Power Spectral Density (PSD) was computed to identify dominant oscillation periods ($T = 1/f$) and harmonic frequencies.
+            <!-- SECTION 5: CONCLUSION -->
+            <h2 id="conclusion">&#127775; 5. Physical Interpretation &amp; Main Findings</h2>
+            <p>
+                <b>1. Thermodynamics of Warsaw's Surface:</b> Together, solar radiation, humidity, pressure, and wind explain <b>62.2%</b> of all daily temperature variance across 9 years. Incoming shortwave solar radiation is the #1 warming factor, while high humidity and winter high-pressure cells strongly cool the surface.
+            </p>
+            <p>
+                <b>2. Orbital Mechanics in Weather Data:</b> Even though daily weather looks noisy due to clouds, the FFT cleanly isolates Earth's <b>1-year orbital period (365.4 days)</b> as a massive spike in the frequency spectrum.
+            </p>
 
-## 4. Main Findings
+            <hr color="#FF00FF" size="3">
 
-### Dataset Overview (Warsaw: Dec 31, 2015 – Dec 31, 2024)
-Across **N = 3,289** daily observations near Pałac Kultury i Nauki (`52.2298° N, 21.0073° E`), daily mean temperature (`T2M`) averaged **9.46 °C** (SD = **9.04 °C**, range **-17.10 °C to 28.56 °C**), and downward shortwave solar irradiance (`ALLSKY_SFC_SW_DWN`) averaged **10.91 MJ/m²/day** (SD = **8.10 MJ/m²/day**, range **0.44 to 30.91 MJ/m²/day**).
+            <div class="footer">
+                <p>You are visitor number:</p>
+                <span class="counter">001337</span>
+                <p style="margin-top: 12px;">
+                    Best viewed in Netscape Navigator 4.0 or Internet Explorer 5.0 at 800x600 resolution!<br>
+                    <a href="https://github.com/YOUR-USERNAME/YOUR-REPO-NAME" style="color:#00FFFF;">[ Back to My GitHub Repository ]</a>
+                </p>
+            </div>
+        </td>
+    </tr>
+</table>
 
-### Analysis 1: Multiple Linear Regression (OLS)
-The multiple linear regression model predicting daily mean temperature from solar irradiance, relative humidity, surface pressure, and wind speed is statistically significant ($F(4, 3284) = 1352$, $p < 0.001$) and explains **$R^2 = 0.622$ (62.2%)** of the daily temperature variance:
-
-$$T_{2\text{M}} = 251.538 + 0.505\,S_{\downarrow} - 0.229\,\text{RH} - 2.269\,P_s - 0.802\,v_{\text{wind}}$$
-
-* **Solar Irradiance (`ALLSKY_SFC_SW_DWN`):** Raw slope $\beta = +0.505\ ^\circ\text{C}/(\text{MJ/m}^2/\text{day})$, standardized effect **$\beta_{\text{std}} = +0.452$** ($p = 8.96 \times 10^{-94}$). This is the strongest positive driver of surface warming via direct radiative energy input.
-* **Relative Humidity (`RH2M`):** Raw slope $\beta = -0.229\ ^\circ\text{C}/\%$, standardized effect **$\beta_{\text{std}} = -0.330$** ($p = 9.79 \times 10^{-54}$). Higher humidity is associated with increased cloud cover (blocking sunlight) and evaporative cooling.
-* **Surface Pressure (`PS`):** Raw slope $\beta = -2.269\ ^\circ\text{C}/\text{kPa}$, standardized effect **$\beta_{\text{std}} = -0.213$** ($p = 1.40 \times 10^{-75}$). In Central Europe, strong high-pressure anticyclones frequently bring cold, clear continental air masses in winter.
-* **Wind Speed (`WS2M`):** Raw slope $\beta = -0.802\ ^\circ\text{C}/(\text{m/s})$, standardized effect **$\beta_{\text{std}} = -0.114$** ($p = 8.87 \times 10^{-22}$). Stronger winds enhance convective heat transfer away from the surface.
-* **Multicollinearity Check (VIF):** All Variance Inflation Factors lie between **1.11 and 3.95** (`SW_DWN`: 3.95, `RH2M`: 3.83, `PS`: 1.11, `WS2M`: 1.20), well below the critical threshold of 5–10, confirming that the predictors do not suffer from problematic multicollinearity.
-
-### Analysis 2: Fast Fourier Transform (FFT Spectral Analysis)
-Applying a one-sided Real Discrete Fourier Transform (`rfft`) to the mean-centered solar irradiance series ($N = 3289$ days) reveals a single dominant spectral spike in the Power Spectral Density ($\text{PSD}_{\max} = 82,708.83$):
-* **Dominant Frequency:** **$f = 0.002736\text{ cycles/day}$**
-* **Corresponding Period:** **$T = \frac{1}{f} = 365.44\text{ days}$**
-
-This matches Earth's **365.25-day orbital revolution** around the Sun (within the discrete frequency bin resolution $\Delta f = 1/3289 \approx 0.000304\text{ cycles/day}$ of a 9-year window), proving that astronomical orbital mechanics govern Warsaw's long-term radiative energy budget despite daily cloud noise.
-
-
-  
-## 5. Repository Structure
-```text
-├── README.md                              # Project documentation and findings
-├── index.html                             # Source code for the presentation website
-├── style.css                              # Styling for the presentation website
-├── data/
-│   └── brussels_weather_2016_2025.csv     # Raw daily meteorological data from NASA POWER
-├── scripts/
-│   └── analysis.py                        # Python script running regression, FFT, and plotting
-└── figures/
-    ├── regression_analysis.pdf            # Exported PDF: Standardized coefficients & residuals
-    └── fft_solar_spectrum.pdf             # Exported PDF: Solar irradiance time series & PSD
+</body>
+</html>
